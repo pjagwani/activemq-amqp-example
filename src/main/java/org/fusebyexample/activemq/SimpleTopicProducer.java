@@ -24,15 +24,15 @@ import javax.naming.InitialContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SimpleProducer {
-    private static final Logger LOG = LoggerFactory.getLogger(SimpleProducer.class);
+public class SimpleTopicProducer {
+    private static final Logger LOG = LoggerFactory.getLogger(SimpleTopicProducer.class);
 
     private static final Boolean NON_TRANSACTED = false;
     private static final long MESSAGE_TIME_TO_LIVE_MILLISECONDS = 0;
     private static final int MESSAGE_DELAY_MILLISECONDS = 100;
     private static final int NUM_MESSAGES_TO_BE_SENT = 10;
     private static final String CONNECTION_FACTORY_NAME = "myJmsFactory";
-    private static final String DESTINATION_NAME = "queue/simple";
+    private static final String DESTINATION_NAME = "topic/simple";
 
     public static void main(String args[]) {
         Connection connection = null;
@@ -41,7 +41,7 @@ public class SimpleProducer {
             // JNDI lookup of JMS Connection Factory and JMS Destination
             Context context = new InitialContext();
             ConnectionFactory factory = (ConnectionFactory) context.lookup(CONNECTION_FACTORY_NAME);
-            Destination destination = (Destination) context.lookup(DESTINATION_NAME);
+            Topic destination = (Topic) context.lookup(DESTINATION_NAME);
 
             connection = factory.createConnection();
             connection.start();
